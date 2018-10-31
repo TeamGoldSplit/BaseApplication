@@ -7,6 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import org.opencv.core.Mat;
+import org.opencv.core.Core;
+import org.opencv.android.Utils;
+import org.opencv.imgproc.Imgproc;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button cameraButton;
@@ -18,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.loadLibrary("opencv_java3");
 
         //cameraButton
         cameraButton = findViewById(R.id.camera_button);
@@ -38,5 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(fileIntent);
             }
         });
+
     }
 }

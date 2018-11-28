@@ -16,13 +16,13 @@ public class OperationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_operations);
 
         Intent intent = getIntent();
         origin = intent.getStringExtra("origin");
 
         //backButton
-        backButton = findViewById(R.id.camera_button);
+        /*backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +33,7 @@ public class OperationsActivity extends AppCompatActivity {
                     backIntent = new Intent(OperationsActivity.this, FileActivity.class);
                 startActivity(backIntent);
             }
-        });
+        });*/
 
         //opsButton
         computeButton = findViewById(R.id.compute_button);

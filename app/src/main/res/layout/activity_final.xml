@@ -13,14 +13,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     android:padding="@dimen/activity_padding"
-    tools:context=".CameraActivity">
+    tools:context=".FinalActivity">
 
     <!--topButton-->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:id="@+id/top_button"
-        android:text="Back to top" />
+        android:text="Back to top"
+        android:textColor="@color/colorAccent"/>
 
 </LinearLayout>

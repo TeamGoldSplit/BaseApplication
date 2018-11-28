@@ -23,20 +23,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_padding"
+    android:background="@color/colorPrimaryDark"
+    android:weightSum="2"
     tools:context=".MainActivity">
 
-    <!--cameraButton-->
-    <Button
-        android:layout_width="wrap_content"
+    <!--camera_button-->
+    <ImageButton
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/camera_button"
-        android:text="Camera" />
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_photo_camera_accent_72dp"
+        android:layout_weight="1"
+        />
 
-    <!--fileButton-->
-    <Button
-        android:layout_width="wrap_content"
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        />
+
+    <!--file_button-->
+    <ImageButton
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/file_button"
-        android:text="File" />
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_folder_open_accent_72dp"
+        android:layout_weight="1"
+        />
+
+    <!--fileButton-->
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/file_button"-->
+        <!--android:padding="@dimen/activity_padding"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:drawableTint="@color/colorAccent"-->
+        <!--android:drawableTop="@drawable/ic_folder_open_black_72dp"-->
+        <!--android:text="File"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:layout_weight="10"-->
+        <!--/>-->
+
+
+
 
 </LinearLayout>

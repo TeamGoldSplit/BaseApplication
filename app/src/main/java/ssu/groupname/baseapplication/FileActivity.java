@@ -8,26 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class FileActivity extends AppCompatActivity {
 
-    private Button backButton;
-    private Button opsButton;
+    private ImageButton opsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //backButton
-        backButton = findViewById(R.id.camera_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent backIntent = new Intent(FileActivity.this, MainActivity.class);
-                startActivity(backIntent);
-            }
-        });
+        setContentView(R.layout.activity_file);
 
         //opsButton
         opsButton = findViewById(R.id.ops_button);

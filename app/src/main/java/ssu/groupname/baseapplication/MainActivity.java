@@ -13,11 +13,12 @@ import org.opencv.android.Utils;
 import org.opencv.imgproc.Imgproc;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button cameraButton;
-    private Button fileButton;
+    private ImageButton cameraButton;
+    private ImageButton fileButton;
     //private Button settingsButton;
 
 
@@ -46,6 +47,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(fileIntent);
             }
         });
-
     }
 }

@@ -1,15 +1,37 @@
 package ssu.groupname.baseapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.os.strictmode.Violation;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class FinalActivity extends AppCompatActivity {
+public class FinalActivity extends FragmentActivity {
 
     private Button topButton;
+    ColorPagerAdapter colorPagerAdapter;
+    private ViewPager cViewPager;
+    private ImageView imgView;
+    private ImageView imgView1;
+    private ImageView imgView2;
 
+    private ImageView[] views;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,5 +47,38 @@ public class FinalActivity extends AppCompatActivity {
                 startActivity(backIntent);
             }
         });
+
+
+
+/*
+        imgView = findViewById(R.id.final_color_solid);
+        GSColor dispColor = new GSColor(255, 153, 51, 255);
+        imgView.setImageBitmap(dispColor.getBmp());
+
+        imgView1 = findViewById(R.id.final_color_solid1);
+        GSColor dispColor1 = new GSColor(153, 255, 51, 255);
+        imgView1.setImageBitmap(dispColor1.getBmp());
+
+        imgView2 = findViewById(R.id.final_color_solid2);
+        GSColor dispColor2 = new GSColor(51, 255, 153, 255);
+        imgView2.setImageBitmap(dispColor2.getBmp());
+
+        */
+        views = new ImageView[20];
+        views[0] = imgView;
+        views[1] = imgView1;
+        views[2] = imgView2;
+
+
+        colorPagerAdapter = new ColorPagerAdapter(getSupportFragmentManager());
+        cViewPager = findViewById(R.id.final_pager);
+        cViewPager.setAdapter(colorPagerAdapter);
+
     }
+
+    public ImageView getImgView(int i) {
+        return views[i];
+    }
+
 }
+

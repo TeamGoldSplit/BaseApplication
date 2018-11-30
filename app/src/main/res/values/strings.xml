@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GoldSplitColor™</string>
+    <string name="back_to_top">Back to top</string>
+    <string name="most_common_color">Most common color</string>
+    <string name="avg_color">Average color</string>
+    <string name="palette">Palette</string>
 </resources>

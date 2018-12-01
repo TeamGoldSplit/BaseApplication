@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-</android.support.constraint.ConstraintLayout> -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,6 +9,15 @@
     android:background="@color/colorPrimaryDark"
     android:weightSum="2"
     tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorAccent"/>
+
 
     <!--camera_button-->
     <ImageButton
@@ -51,22 +43,4 @@
         android:src="@drawable/ic_folder_open_accent_72dp"
         android:layout_weight="1"
         />
-
-    <!--fileButton-->
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/file_button"-->
-        <!--android:padding="@dimen/activity_padding"-->
-        <!--android:background="@color/colorPrimary"-->
-        <!--android:drawableTint="@color/colorAccent"-->
-        <!--android:drawableTop="@drawable/ic_folder_open_black_72dp"-->
-        <!--android:text="File"-->
-        <!--android:textColor="@color/colorAccent"-->
-        <!--android:layout_weight="10"-->
-        <!--/>-->
-
-
-
-
 </LinearLayout>

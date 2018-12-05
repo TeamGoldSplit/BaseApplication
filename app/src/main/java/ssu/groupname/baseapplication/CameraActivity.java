@@ -1,5 +1,6 @@
 package ssu.groupname.baseapplication;
 
+
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;

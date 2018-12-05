@@ -1,6 +1,8 @@
 package ssu.groupname.baseapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.VolumeShaper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,12 +36,15 @@ public class OperationsActivity extends AppCompatActivity {
                 startActivity(backIntent);
             }
         });*/
-
         //opsButton
+
         computeButton = findViewById(R.id.compute_button);
         computeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.suicide );
+                new ColorCalcTask().find_histogram(img);
+                new ColorCalcTask().doInBackground(img);
                 Intent computeIntent = new Intent(OperationsActivity.this, FinalActivity.class);
                 startActivity(computeIntent);
             }

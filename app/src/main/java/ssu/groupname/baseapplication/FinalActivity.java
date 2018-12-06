@@ -50,39 +50,25 @@ public class FinalActivity extends FragmentActivity {
             }
         });
 
-        Intent intent = getIntent();
-        ArrayList<int[]> colorIntArrays = new ArrayList<>();
+//        Intent intent = getIntent();
+////        ArrayList<int[]> colorIntArrays = new ArrayList<>();
+////        for(int i = 0; i < 6; i++){
+////            colorIntArrays.add(intent.getIntArrayExtra("Color"+Integer.toString(i)));
+////        }
+////        ArrayList<GSColor> finalColors = new ArrayList<>();
+////        for(int i = 0; i < 6; i++){
+////            int[] rgba = colorIntArrays.get(i);
+////            int r = rgba[0], g = rgba[1], b = rgba[2];
+////            finalColors.add(new GSColor(r, g, b));
+////        }
+        String[] bmpFileNames = new String[6];
+        Bitmap bmp = null;
         for(int i = 0; i < 6; i++){
-            colorIntArrays.add(intent.getIntArrayExtra("Color"+Integer.toString(i)));
+            String filename = getIntent().getStringExtra("color_image" + Integer.toString(i));
+            bmpFileNames[i] = filename;
         }
-        ArrayList<GSColor> finalColors = new ArrayList<>();
-        for(int i = 0; i < 6; i++){
-            int[] rgba = colorIntArrays.get(i);
-            int r = rgba[0], g = rgba[1], b = rgba[2];
-            finalColors.add(new GSColor(r, g, b));
-        }
-
-
-
-
-/*
-        imgView = findViewById(R.id.final_color_solid);
-        GSColor dispColor = new GSColor(255, 153, 51, 255);
-        imgView.setImageBitmap(dispColor.getBmp());
-
-        imgView1 = findViewById(R.id.final_color_solid1);
-        GSColor dispColor1 = new GSColor(153, 255, 51, 255);
-        imgView1.setImageBitmap(dispColor1.getBmp());
-
-        imgView2 = findViewById(R.id.final_color_solid2);
-        GSColor dispColor2 = new GSColor(51, 255, 153, 255);
-        imgView2.setImageBitmap(dispColor2.getBmp());
-
-        */
-        views = new ImageView[20];
-        views[0] = imgView;
-        views[1] = imgView1;
-        views[2] = imgView2;
+        //bmpFileNames[0]: most prominent
+        //bmpFileNames[0..5]: 6 most prominent
 
 
         colorPagerAdapter = new ColorPagerAdapter(getSupportFragmentManager());

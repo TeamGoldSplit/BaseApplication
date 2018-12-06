@@ -1,5 +1,6 @@
 package ssu.groupname.baseapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +14,9 @@ import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class OperationsActivity extends AppCompatActivity {
 
@@ -48,19 +51,46 @@ public class OperationsActivity extends AppCompatActivity {
         computeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //BITMAP GOES HERE!!! All you need to do is assign it to img, and the rest is taken care of
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.toucan);
-                Mat mat = new Mat(img.getHeight(), img.getWidth(), CvType.CV_8UC3);
-                Utils.bitmapToMat(img, mat);
-                ArrayList<int[]> colors = new ColorCalcTask().kMeans(img);
+                ArrayList<int[]> colors = new ColorCalcTask().kMeans(img, OperationsActivity.this);
                 Intent computeIntent = new Intent(OperationsActivity.this, FinalActivity.class);
-                computeIntent.putExtra("Color0", colors.get(0));
-                computeIntent.putExtra("Color1", colors.get(1));
-                computeIntent.putExtra("Color2", colors.get(2));
-                computeIntent.putExtra("Color3", colors.get(3));
-                computeIntent.putExtra("Color4", colors.get(4));
-                computeIntent.putExtra("Color5", colors.get(5));
+                for(int i = 0; i < 6; i++){
+//                    computeIntent.putExtra("Color" + Integer.toString(i), colors.get(i));
+                    Bitmap bmp = new GSColor(colors.get(i)[0],colors.get(i)[1],colors.get(i)[2]).getBmp();
+
+                    //Write to file
+                    //color naming convention:
+                    //0: most prominent
+                    //0-5: 6 most prominent
+                    String filename = "color" + Integer.toString(i) + ".png";
+                    save(filename, bmp, OperationsActivity.this);
+                    computeIntent.putExtra("color_image" + Integer.toString(i), filename);
+                }
+                Random r = new Random();
+                new ColorCalcTask().generatePalette(colors.get(r.nextInt(5)), OperationsActivity.this);
                 startActivity(computeIntent);
             }
         });
     }
+
+    public static void save(String filename, Bitmap bmp, Context context){
+        FileOutputStream fileOut;
+        Bitmap saveBMP = null;
+        try{
+            //write
+            fileOut = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            saveBMP = bmp;
+            saveBMP.compress(Bitmap.CompressFormat.PNG, 100, fileOut);
+
+            //cleanup
+            fileOut.close();
+            bmp.recycle();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimaryDark">
+
+
+    <GridLayout
+        android:layout_width="360dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="163dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="164dp"
+        android:columnCount="3"
+        android:rowCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/gen_palette0"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/gen_palette1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/gen_palette2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/gen_palette3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/gen_palette4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/gen_palette5"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+    </GridLayout>
+
+
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:textAlignment="center"-->
+    <!--android:text=""/>-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:textAlignment="center"-->
+    <!--android:text="PALETTE"/>-->
+
+</android.support.constraint.ConstraintLayout>
+
+    <!--android:layout_marginTop="70dp"-->

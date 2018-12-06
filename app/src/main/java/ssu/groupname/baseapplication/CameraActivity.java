@@ -4,26 +4,22 @@ import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 public class CameraActivity extends AppCompatActivity {
 
     Camera camera;
     FrameLayout cameraScreen;
     ShowCamera showCamera;
+    String pathToFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +29,23 @@ public class CameraActivity extends AppCompatActivity {
         camera = Camera.open();
         showCamera = new ShowCamera(this, camera);
         cameraScreen.addView(showCamera);
+
+        Button btn = (Button)findViewById(R.id.captureButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                captureImage(v);
+            }
+        });
+
+        Button cBtn = (Button)findViewById(R.id.compute);
+        cBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cIntent = new Intent(CameraActivity.this,PictureActivity.class);
+                startActivity(cIntent);
+            }
+        });
     }
     Camera.PictureCallback mPictureCallBack = new Camera.PictureCallback() {
         @Override
@@ -55,14 +68,14 @@ public class CameraActivity extends AppCompatActivity {
         }
     };
     private File getOutPutMediaFile() {
-        String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new java.util.Date());
-        String imageFileName = "JPEG_" + timeStamp + ".jpeg";
+        String imageFileName = "temp.jpeg";
         String state = Environment.getExternalStorageState();
         if(!state.equals(Environment.MEDIA_MOUNTED)) {
             return null;
         } else {
             File folder_TGS = new File(Environment.getExternalStorageDirectory() + File.separator + "TeamGoldSplit");
             File outPutFile = new File(folder_TGS, imageFileName);
+            pathToFile = outPutFile.getAbsolutePath();
             return outPutFile;
         }
     }

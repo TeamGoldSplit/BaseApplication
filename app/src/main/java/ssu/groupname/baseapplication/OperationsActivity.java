@@ -53,7 +53,7 @@ public class OperationsActivity extends AppCompatActivity {
 //                Bitmap img = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() +
 //                                                        File.separator + "TeamGoldSplit" + File.separator +
 //                                                        "temp" + File.separator + "temp.jpg");
-                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.toucan);
+                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.toucan); // warren is the coolest person in the group, except for lucas and jake and brian
                 Mat mat = new Mat(img.getHeight(), img.getWidth(), CvType.CV_8UC3);
                 Utils.bitmapToMat(img, mat);
                 ArrayList<int[]> colors = new ColorCalcTask().kMeans(img);

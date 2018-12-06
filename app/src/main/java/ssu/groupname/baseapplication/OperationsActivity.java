@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.VolumeShaper;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class OperationsActivity extends AppCompatActivity {
@@ -48,6 +50,9 @@ public class OperationsActivity extends AppCompatActivity {
         computeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Bitmap img = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() +
+//                                                        File.separator + "TeamGoldSplit" + File.separator +
+//                                                        "temp" + File.separator + "temp.jpg");
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.toucan);
                 Mat mat = new Mat(img.getHeight(), img.getWidth(), CvType.CV_8UC3);
                 Utils.bitmapToMat(img, mat);

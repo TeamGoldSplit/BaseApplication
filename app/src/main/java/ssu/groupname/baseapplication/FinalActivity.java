@@ -50,35 +50,16 @@ public class FinalActivity extends FragmentActivity {
             }
         });
 
-//        Intent intent = getIntent();
-////        ArrayList<int[]> colorIntArrays = new ArrayList<>();
-////        for(int i = 0; i < 6; i++){
-////            colorIntArrays.add(intent.getIntArrayExtra("Color"+Integer.toString(i)));
-////        }
-////        ArrayList<GSColor> finalColors = new ArrayList<>();
-////        for(int i = 0; i < 6; i++){
-////            int[] rgba = colorIntArrays.get(i);
-////            int r = rgba[0], g = rgba[1], b = rgba[2];
-////            finalColors.add(new GSColor(r, g, b));
-////        }
         String[] bmpFileNames = new String[6];
         Bitmap bmp = null;
         for(int i = 0; i < 6; i++){
             String filename = getIntent().getStringExtra("color_image" + Integer.toString(i));
             bmpFileNames[i] = filename;
         }
-        //bmpFileNames[0]: most prominent
-        //bmpFileNames[0..5]: 6 most prominent
-
-
         colorPagerAdapter = new ColorPagerAdapter(getSupportFragmentManager());
         cViewPager = findViewById(R.id.final_pager);
         cViewPager.setAdapter(colorPagerAdapter);
 
-    }
-
-    public ImageView getImgView(int i) {
-        return views[i];
     }
 
 }

@@ -14,6 +14,8 @@ import org.opencv.core.TermCriteria;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 
@@ -21,11 +23,18 @@ class ColorCalcTask {
 
 
 
-    ArrayList<int[]> kMeans(Bitmap bmp, Context context){
+    ArrayList<int[]> kMeans(Bitmap bmp, Context context, int quality){
 
         Mat rgba = new Mat();
         //Resize for easier computation
-        Bitmap resized = getResizedBitmap(bmp, 400);
+        int maxWidth;
+        switch (quality){
+            case 0: maxWidth = 200;
+            case 1: maxWidth = 400;
+            case 2: maxWidth = 800;
+            default: maxWidth = 200;
+        }
+        Bitmap resized = getResizedBitmap(bmp, maxWidth);
         Utils.bitmapToMat(resized, rgba);
         Mat rgb = new Mat();
         Mat imgLab = new Mat();
@@ -56,31 +65,11 @@ class ColorCalcTask {
         Log.i("AH", "rows, cols in colors: " + Integer.toString(colors.rows()) + ", " + Integer.toString(colors.cols()));
 
 //OPERATE ON THE DATA
-        int zero = 0, one = 0, two = 0, three = 0, four = 0, five = 0;
         for(int i = 0; i < n; i++){
             int r = (int)labels.get(i, 0)[0];
-            switch (r){
-                case 0: zero++;
-                case 1: one++;
-                case 2: two++;
-                case 3: three++;
-                case 4: four++;
-                case 5: five++;
-            }
             data.put(i,0, colors.get(r, 0));
             data.put(i,1, colors.get(r, 1));
             data.put(i,2, colors.get(r, 2));
-        }
-        int[] choice = {zero, one, two, three, four, five};
-        int max = 0;
-        int maxIndex = 0;
-        for(int i = 0; i < 6; i++){
-            if(choice[i] > max)
-                max = choice[i];
-        }
-        for(int i = 0; i < 6; i++){
-            if(choice[i] == max)
-                maxIndex = i;
         }
 
         Mat reduced = data.reshape(3, rgb.rows());
@@ -104,13 +93,7 @@ class ColorCalcTask {
             int[] color = {r, g, b};
             finalColors.add(color);
         }
-        int[] temp = new int[3];
-        temp = finalColors.get(0);
-        finalColors.set(0, finalColors.get(maxIndex));
-        for(int i = 0; i < 6; i++){
-            if(finalColors.get(i) == finalColors.get(maxIndex))
-                finalColors.set(i, temp);
-        }
+        storeColorsHex(finalColors, context);
         return finalColors;
     }
 
@@ -131,26 +114,58 @@ class ColorCalcTask {
     }
 
     public void generatePalette(int[] seed, Context context){
+
         float[] hsv0 = new float[3];
         Color.RGBToHSV(seed[0], seed[1], seed[2], hsv0);
+        Log.i("hsv0", "generatePalette: hsv0:" + Float.toString(hsv0[0]) + " " + Float.toString(hsv0[1]) + " " + Float.toString(hsv0[2]));
         float[] hsv1 = new float[3];
         float[] hsv2 = new float[3];
         float[] hsv3 = new float[3];
         float[] hsv4 = new float[3];
         float[] hsv5 = new float[3];
 
-        float increment = (float)1/3;
-        for(int i = 0; i < 3; i+=1){
-            hsv1[i] = (hsv0[i] + increment)%1;
-            hsv2[i] = (hsv0[i] + (2* increment))%1;
-        }
+        float hueIncrement1 = 120;
+        float hueIncrement2 = 30;
 
-        float increment2 = (float)1/7;
-        for(int i = 0; i < 3; i+=1){
-            hsv3[i] = (hsv0[i] + increment2)%1;
-            hsv4[i] = (hsv1[i] + increment2)%1;
-            hsv5[i] = (hsv2[i] + increment2)%1;
-        }
+        float saturationIncrement;
+        if(hsv0[1] < .5)
+            saturationIncrement = -1/12f;
+        else
+            saturationIncrement = 1/12f;
+
+        float valueIncrement;
+        if(hsv0[2] < .5)
+            valueIncrement = -1/8f;
+        else
+            valueIncrement = 1/8f;
+
+        hsv1[0] = (hsv0[0] + hueIncrement2)%360f;
+        hsv2[0] = (hsv0[0] + (2*hueIncrement2))%360f;
+        hsv3[0] = (hsv0[0] + hueIncrement1)%360f;
+        hsv4[0] = (hsv0[0] + hueIncrement1 + hueIncrement2)%360f;
+        hsv5[0] = (hsv0[0] + hueIncrement1 - hueIncrement2)%360f;
+
+
+        hsv1[1] = (hsv0[1] - saturationIncrement)%1f;
+        hsv2[1] = (hsv0[1] - saturationIncrement)%1f;
+        hsv3[1] = (hsv0[1] + saturationIncrement)%1f;
+        hsv4[1] = (hsv0[1] + saturationIncrement)%1f;
+        hsv5[1] = (hsv0[1] + (2*saturationIncrement))%1f;
+
+        hsv1[2] = (hsv0[2] - valueIncrement)%1f;
+        hsv2[2] = (hsv0[2] - valueIncrement)%1f;
+        hsv3[2] = (hsv0[2] + valueIncrement)%1f;
+        hsv4[2] = (hsv0[2] + valueIncrement)%1f;
+        hsv5[2] = (hsv0[2] + (2*valueIncrement))%1f;
+
+
+        ArrayList<float[]> hsvs = new ArrayList<>();
+        hsvs.add(hsv0);
+        hsvs.add(hsv1);
+        hsvs.add(hsv2);
+        hsvs.add(hsv3);
+        hsvs.add(hsv4);
+        hsvs.add(hsv5);
 
         Bitmap bmp0 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
         bmp0.eraseColor(Color.HSVToColor(hsv0));
@@ -170,6 +185,12 @@ class ColorCalcTask {
         save("generatedPalette3", bmp3, context);
         save("generatedPalette4", bmp4, context);
         save("generatedPalette5", bmp5, context);
+
+        String[] hexCodes = new String[6];
+        for(int i = 0; i < 6; i++){
+            hexCodes[i] = buildHex(Color.HSVToColor(hsvs.get(i)));
+        }
+        writeToFile("gen_palette_hexes.txt", hexCodes, context);
     }
 
 
@@ -191,5 +212,35 @@ class ColorCalcTask {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void writeToFile(String filename, String[] data,Context context) {
+        OutputStreamWriter outputStreamWriter;
+        try {
+            outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            for(int i = 0; i < 6; i++){
+                outputStreamWriter.write(data[i] + System.getProperty("line.separator"));
+            }
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    private String buildHex (int colorInt){
+        String hex = String.format("#%06X", (0xFFFFFF & colorInt));
+        return hex;
+    }
+
+    private void storeColorsHex(ArrayList<int[]> colors, Context context) {
+        String[] data = new String[6];
+        for (int i = 0; i < 6; i++){
+            int r = colors.get(i)[0];
+            int g = colors.get(i)[1];
+            int b = colors.get(i)[2];
+            data[i] = buildHex(Color.rgb(r, g, b));
+        }
+        writeToFile("decomposed_colors_hex.txt", data, context);
     }
 }

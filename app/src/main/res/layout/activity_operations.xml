@@ -8,7 +8,8 @@
 
 <!--</android.support.constraint.ConstraintLayout>-->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,22 +17,41 @@
     android:background="@color/colorPrimaryDark"
     android:padding="@dimen/activity_padding"
     tools:context=".OperationsActivity">
-    
+
+    <ProgressBar
+        android:id="@+id/spinner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="232dp"
+        android:layout_marginEnd="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:gravity="center|bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/compute_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/compute_button"
-            android:background="@color/colorPrimary"
             android:layout_gravity="center_horizontal|bottom"
+            android:background="@color/colorPrimary"
             android:text="Compute"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 
@@ -45,4 +65,4 @@
     <!--computeButton-->
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

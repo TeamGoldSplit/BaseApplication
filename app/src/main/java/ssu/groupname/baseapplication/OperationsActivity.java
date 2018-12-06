@@ -52,7 +52,7 @@ public class OperationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //BITMAP GOES HERE!!! All you need to do is assign it to img, and the rest is taken care of
-                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.toucan);
+                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.bird);
                 ArrayList<int[]> colors = new ColorCalcTask().kMeans(img, OperationsActivity.this);
                 Intent computeIntent = new Intent(OperationsActivity.this, FinalActivity.class);
                 for(int i = 0; i < 6; i++){

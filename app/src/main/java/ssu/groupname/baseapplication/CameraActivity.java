@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -29,19 +30,25 @@ public class CameraActivity extends AppCompatActivity {
         camera = Camera.open();
         showCamera = new ShowCamera(this, camera);
         cameraScreen.addView(showCamera);
+//
+//        Button btn = (Button)findViewById(R.id.captureButton);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                captureImage(v);
+//            }
+//        });
 
-        Button btn = (Button)findViewById(R.id.captureButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                captureImage(v);
-            }
-        });
-
-        Button cBtn = (Button)findViewById(R.id.compute);
+        Button cBtn = (Button)findViewById(R.id.captureButton);
         cBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                captureImage(v);
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Intent cIntent = new Intent(CameraActivity.this,PictureActivity.class);
                 startActivity(cIntent);
             }

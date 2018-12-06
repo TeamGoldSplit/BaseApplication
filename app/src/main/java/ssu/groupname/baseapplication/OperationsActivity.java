@@ -43,7 +43,7 @@ public class OperationsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 spinner.setVisibility(View.VISIBLE);
                 //BITMAP GOES HERE!!! All you need to do is assign it to img, and the rest is taken care of
-                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.flower);
+                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.bird);
                 ArrayList<int[]> colors = new ColorCalcTask().kMeans(img, OperationsActivity.this, 0);
                 Intent computeIntent = new Intent(OperationsActivity.this, FinalActivity.class);
                 for(int i = 0; i < 6; i++){
@@ -57,8 +57,7 @@ public class OperationsActivity extends AppCompatActivity {
                     save(filename, bmp, OperationsActivity.this);
                     computeIntent.putExtra("color_image" + Integer.toString(i), filename);
                 }
-                Random r = new Random();
-                new ColorCalcTask().generatePalette(colors.get(r.nextInt(5)), OperationsActivity.this);
+                new ColorCalcTask().generatePalette(colors.get(5), OperationsActivity.this);
                 //spinner.setVisibility(View.GONE);
                 startActivity(computeIntent);
             }

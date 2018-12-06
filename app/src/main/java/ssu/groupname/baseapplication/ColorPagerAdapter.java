@@ -38,7 +38,7 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
             case 0: return "Result of Decomposition";
             case 1: return "Most Common Color";
             case 2: return "Six Most Common Colors";
-            case 3: return "Palette from Random Common Color";
+            case 3: return "Palette from Most Common Color";
         }
         return "OBJECT" + (position + 1);
     }

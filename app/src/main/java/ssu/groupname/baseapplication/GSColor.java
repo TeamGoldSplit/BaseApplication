@@ -8,23 +8,33 @@ import android.support.annotation.RequiresApi;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class GSColor {
 
+    private int red, green, blue;
 
-    public GSColor(int r, int g, int b, int a){
+    private String hex;
+    private Bitmap bmp;
+
+    public GSColor(int r, int g, int b){
         bmp = Bitmap.createBitmap(800, 800, Bitmap.Config.ARGB_8888);
-        bmp.eraseColor(Color.argb(a, r, g, b));
+        bmp.eraseColor(Color.rgb(r, g, b));
 
-        hex = Integer.toHexString(r);
-        hex += Integer.toHexString(g);
-        hex += Integer.toHexString(b);
+        red = r;
+        green = g;
+        blue = b;
+
+        hex = Integer.toHexString(b);
+        if(b < 16)
+            hex = "0" + hex;
+        hex = Integer.toHexString(g) + hex;
+        if(g < 16)
+            hex = "0" + hex;
+        hex = Integer.toHexString(r) + hex;
+        if(r < 16)
+            hex = "0" + hex;
+
     }
 
-    public double getAlpha() {
-        return color.alpha();
-    }
 
-    public int getColorInt(){
-        return color.toArgb();
-    }
+    public int getColorInt(){ return Color.rgb(red, green, blue); }
     public String getHexString() {
         return hex;
     }
@@ -32,7 +42,5 @@ public class GSColor {
         return bmp;
     }
 
-    private Color color;
-    private String hex;
-    private Bitmap bmp;
+
 }

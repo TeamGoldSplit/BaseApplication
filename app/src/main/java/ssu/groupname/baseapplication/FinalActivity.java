@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class FinalActivity extends FragmentActivity {
 
     private Button topButton;
@@ -47,6 +49,19 @@ public class FinalActivity extends FragmentActivity {
                 startActivity(backIntent);
             }
         });
+
+        Intent intent = getIntent();
+        ArrayList<int[]> colorIntArrays = new ArrayList<>();
+        for(int i = 0; i < 6; i++){
+            colorIntArrays.add(intent.getIntArrayExtra("Color"+Integer.toString(i)));
+        }
+        ArrayList<GSColor> finalColors = new ArrayList<>();
+        for(int i = 0; i < 6; i++){
+            int[] rgba = colorIntArrays.get(i);
+            int r = rgba[0], g = rgba[1], b = rgba[2];
+            finalColors.add(new GSColor(r, g, b));
+        }
+
 
 
 

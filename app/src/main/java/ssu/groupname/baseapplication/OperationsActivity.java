@@ -30,6 +30,7 @@ public class OperationsActivity extends AppCompatActivity {
     private String origin;
     private ProgressBar spinner;
     private ImageView fileImage;
+    private Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,9 @@ public class OperationsActivity extends AppCompatActivity {
         spinner = (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
-        Bundle extras = getIntent().getExtras();
-        byte[] b = extras.getByteArray("imageView");
-        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+//        Bundle extras = getIntent().getExtras();
+//        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        bmp = (Bitmap)getIntent().getParcelableExtra("imageView");
         ImageView fileImage = (ImageView) findViewById(R.id.image_view);
         fileImage.setImageBitmap(bmp);
 
@@ -77,8 +78,8 @@ public class OperationsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 spinner.setVisibility(View.VISIBLE);
                 //BITMAP GOES HERE!!! All you need to do is assign it to img, and the rest is taken care of
-                Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.bird);
-                ArrayList<int[]> colors = new ColorCalcTask().kMeans(img, OperationsActivity.this, 0);
+                //Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.bird);
+                ArrayList<int[]> colors = new ColorCalcTask().kMeans(bmp, OperationsActivity.this, 0);
                 Intent computeIntent = new Intent(OperationsActivity.this, FinalActivity.class);
                 for(int i = 0; i < 6; i++){
 //                    computeIntent.putExtra("Color" + Integer.toString(i), colors.get(i));

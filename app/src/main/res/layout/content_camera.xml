@@ -33,7 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="11dp"
-        android:text="Compute" />
+        android:text="Next" />
 
     <ImageView
         android:id="@+id/image"

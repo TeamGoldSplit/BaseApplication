@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimaryDark">
+
+
+    <GridLayout
+        android:layout_width="360dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:columnCount="3"
+        android:rowCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/palette0"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/palette1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/palette2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/palette3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/palette4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+        <ImageView
+            android:id="@+id/palette5"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="A color" />
+
+    </GridLayout>
+
+
+    <GridLayout
+        android:id="@+id/gridLayout2"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="72dp"
+        android:columnCount="3"
+        android:rowCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout">
+
+        <TextView
+            android:id="@+id/palette0_hex"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:contentDescription="A color"
+            android:gravity="center"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/palette1_hex"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:contentDescription="A color"
+            android:gravity="center"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/palette2_hex"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:contentDescription="A color"
+            android:gravity="center"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/palette3_hex"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:contentDescription="A color"
+            android:gravity="center"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/palette4_hex"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:contentDescription="A color"
+            android:gravity="center"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/palette5_hex"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:contentDescription="A color"
+            android:gravity="center"
+            android:textColor="#FFF" />
+    </GridLayout>
+
+</android.support.constraint.ConstraintLayout>
+

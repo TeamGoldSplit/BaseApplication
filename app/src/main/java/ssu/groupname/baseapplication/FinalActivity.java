@@ -1,15 +1,39 @@
 package ssu.groupname.baseapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.os.strictmode.Violation;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class FinalActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class FinalActivity extends FragmentActivity {
 
     private Button topButton;
+    ColorPagerAdapter colorPagerAdapter;
+    private ViewPager cViewPager;
+    private ImageView imgView;
+    private ImageView imgView1;
+    private ImageView imgView2;
 
+    private ImageView[] views;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,5 +49,18 @@ public class FinalActivity extends AppCompatActivity {
                 startActivity(backIntent);
             }
         });
+
+        String[] bmpFileNames = new String[6];
+        Bitmap bmp = null;
+        for(int i = 0; i < 6; i++){
+            String filename = getIntent().getStringExtra("color_image" + Integer.toString(i));
+            bmpFileNames[i] = filename;
+        }
+        colorPagerAdapter = new ColorPagerAdapter(getSupportFragmentManager());
+        cViewPager = findViewById(R.id.final_pager);
+        cViewPager.setAdapter(colorPagerAdapter);
+
     }
+
 }
+

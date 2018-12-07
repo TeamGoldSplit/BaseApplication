@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.VolumeShaper;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +43,8 @@ public class OperationsActivity extends AppCompatActivity {
 
 //        Bundle extras = getIntent().getExtras();
 //        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
-        bmp = (Bitmap)getIntent().getParcelableExtra("imageView");
+        // bmp = (Bitmap)getIntent().getParcelableExtra("imageView");
+        bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg");
         ImageView fileImage = (ImageView) findViewById(R.id.image_view);
         fileImage.setImageBitmap(bmp);
 
@@ -68,6 +70,7 @@ public class OperationsActivity extends AppCompatActivity {
         //IMAGE VIEW
 
         fileImage = (ImageView) findViewById(R.id.image_view);
+        fileImage.setImageBitmap(bmp);
 
 
         //opsButton

@@ -22,6 +22,14 @@ public class PictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_camera);
 
+        imgPath = Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg";
+        File imgFile = new File(imgPath);
+        if (imgFile.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            ImageView customImage = (ImageView) findViewById(R.id.image);
+            customImage.setImageBitmap(myBitmap);
+        }
+
         intentButton = findViewById(R.id.compute_button);
         intentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,14 +39,6 @@ public class PictureActivity extends AppCompatActivity {
                 goGoGo.putExtra("imageView", bmap);
             }
         });
-
-        imgPath = Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg";
-        File imgFile = new File(imgPath);
-        if (imgFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            ImageView customImage = (ImageView) findViewById(R.id.image);
-            customImage.setImageBitmap(myBitmap);
-        }
 
 //        Button saveBtn = findViewById(R.id.save);
 //        saveBtn.setOnClickListener(new View.OnClickListener() {

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 
@@ -22,6 +23,9 @@ import android.graphics.drawable.Drawable;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class FileActivity extends AppCompatActivity {
@@ -35,6 +39,7 @@ public class FileActivity extends AppCompatActivity {
     private Bitmap Bitimage;
     private ImageView imageView;
     private static final int PICK_IMAGE = 100;
+    private String filename = Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg";
 
     private String pictureDirectoryPath;
     private File pictureDirectory;
@@ -55,15 +60,18 @@ public class FileActivity extends AppCompatActivity {
 
                 Drawable drawable = imageView.getDrawable();
                 Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] b = baos.toByteArray();
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                byte[] b = baos.toByteArray();
+                try (FileOutputStream out = new FileOutputStream((filename))){
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent(FileActivity.this, OperationsActivity.class);
-                intent.putExtra("imageView", b);
+//                intent.putExtra("imageView", bitmap);
                 startActivity(intent);
-
-
-
 
             }
         });

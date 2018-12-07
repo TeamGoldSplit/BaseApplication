@@ -50,7 +50,7 @@ public class CameraActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Intent cIntent = new Intent(CameraActivity.this,PictureActivity.class);
+                Intent cIntent = new Intent(CameraActivity.this, OperationsActivity.class);
                 startActivity(cIntent);
             }
         });

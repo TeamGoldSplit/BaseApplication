@@ -10,7 +10,7 @@
 
 <!--</android.support.constraint.ConstraintLayout>-->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,18 +18,28 @@
     android:padding="@dimen/activity_padding"
     tools:context=".CameraActivity">
 
-    <!--backButton-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/back_button"
-        android:text="Back" />
+    <!--<Button-->
+        <!--android:id="@+id/save"-->
+        <!--android:layout_width="189dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="189dp"-->
+        <!--android:text="Save" />-->
 
-    <!--finalButton-->
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/compute"
+        android:layout_width="189dp"
         android:layout_height="wrap_content"
-        android:id="@+id/finish_button"
-        android:text="Return to Top" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="11dp"
+        android:text="Compute" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="369dp"
+        android:layout_height="490dp"
+        android:layout_centerInParent="true"
+        android:rotation="90" />
+
+</RelativeLayout>

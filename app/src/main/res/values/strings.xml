@@ -4,4 +4,7 @@
     <string name="most_common_color">Most common color</string>
     <string name="avg_color">Average color</string>
     <string name="palette">Palette</string>
+
+    <string name="c_roll">Files</string>
+
 </resources>

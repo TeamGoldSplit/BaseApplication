@@ -109,7 +109,7 @@ public class GeneratedPaletteFragment extends Fragment {
 
         try {
             hexCodes = readFromFile(getActivity());
-        } catch (Exception e){
+        } catch (Exception e){ 
             e.printStackTrace();
         }
         hex0 = hexCodes[0];

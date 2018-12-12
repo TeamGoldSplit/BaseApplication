@@ -1,5 +1,6 @@
 package ssu.groupname.baseapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.graphics.drawable.Drawable;
+import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileActivity extends AppCompatActivity {
 
@@ -39,7 +43,7 @@ public class FileActivity extends AppCompatActivity {
     private Bitmap Bitimage;
     private ImageView imageView;
     private static final int PICK_IMAGE = 100;
-    private String filename = Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg";
+    private String filename = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg";
 
     private String pictureDirectoryPath;
     private File pictureDirectory;
@@ -51,8 +55,12 @@ public class FileActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.image_view);
 
+
         //opsButton
         opsButton = findViewById(R.id.ops_button);
+
+        opsButton.setEnabled(false);
+
         opsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,14 +71,15 @@ public class FileActivity extends AppCompatActivity {
 //                ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 //                byte[] b = baos.toByteArray();
-                try (FileOutputStream out = new FileOutputStream((filename))){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
+                //saveBMP(filename, bitmap, FileActivity.this);
+//                try (FileOutputStream out = new FileOutputStream((filename))){
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//                } catch (IOException e){
+//                    e.printStackTrace();
+//                }
 
                 Intent intent = new Intent(FileActivity.this, OperationsActivity.class);
-//                intent.putExtra("imageView", bitmap);
+                intent.putExtra("imageView", bitmap);
                 startActivity(intent);
 
             }
@@ -118,6 +127,7 @@ public class FileActivity extends AppCompatActivity {
                 Bitmap Bitimage = BitmapFactory.decodeStream(pictureInputStream);
                 //show the bitmap through our imageview
                 imageView.setImageBitmap(Bitimage);
+                opsButton.setEnabled(true);
             }
             catch (FileNotFoundException e){
                 e.printStackTrace();
@@ -125,5 +135,50 @@ public class FileActivity extends AppCompatActivity {
 
 
         }
+    }
+    public String saveBMP(String filename, Bitmap bmp, Context context){
+        String savedImagePath = null;
+        String imageFileName = "temp.jpeg";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/");
+        boolean success = true;
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs();
+        }
+        if (success) {
+            File imageFile = new File(storageDir, imageFileName);
+            savedImagePath = imageFile.getAbsolutePath();
+            try {
+                OutputStream fOut = new FileOutputStream(imageFile);
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                fOut.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Add the image to the system gallery
+            galleryAddPic(savedImagePath);
+            //Toast.makeText(context, "IMAGE SAVED", Toast.LENGTH_LONG).show();
+        }
+        return savedImagePath;
+//        Bitmap saveBMP = null;
+//        try{
+//            //write
+//            saveBMP = bmp;
+//            saveBMP.compress(Bitmap.CompressFormat.PNG, 100, fileOut);
+//
+//            //cleanup
+//            fileOut.close();
+//            bmp.recycle();
+//
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+    }
+    private void galleryAddPic(String imagePath) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(imagePath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
     }
 }

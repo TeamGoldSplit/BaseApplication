@@ -11,8 +11,8 @@
 
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="360dp"
-        android:layout_height="240dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
@@ -21,52 +21,58 @@
         android:rowCount="2"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.503">
 
         <ImageView
             android:id="@+id/gen_palette0"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="A color" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/a_color"
+            />
 
         <ImageView
             android:id="@+id/gen_palette1"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="A color" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/a_color"
+            />
 
         <ImageView
             android:id="@+id/gen_palette2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="A color" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/a_color"
+            />
 
         <ImageView
             android:id="@+id/gen_palette3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="A color" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/a_color"
+            />
 
         <ImageView
             android:id="@+id/gen_palette4"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="A color" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/a_color"
+            />
 
         <ImageView
             android:id="@+id/gen_palette5"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:contentDescription="A color" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/a_color"
+            />
 
 
     </GridLayout>
 
     <GridLayout
         android:id="@+id/gridLayout3"
-        android:layout_width="360dp"
+        android:layout_width="330dp"
         android:layout_height="120dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
@@ -75,54 +81,53 @@
         android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/gen_palette0_hex"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:contentDescription="A color"
+            android:contentDescription="@string/a_color"
             android:gravity="center"
             android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/gen_palette1_hex"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:contentDescription="A color"
+            android:contentDescription="@string/a_color"
             android:gravity="center"
             android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/gen_palette2_hex"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:contentDescription="A color"
+            android:contentDescription="@string/a_color"
             android:gravity="center"
             android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/gen_palette3_hex"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:contentDescription="A color"
+            android:contentDescription="@string/a_color"
             android:gravity="center"
             android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/gen_palette4_hex"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:contentDescription="A color"
+            android:contentDescription="@string/a_color"
             android:gravity="center"
             android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/gen_palette5_hex"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:contentDescription="A color"
+            android:contentDescription="@string/a_color"
             android:gravity="center"
             android:textColor="#FFF" />
     </GridLayout>

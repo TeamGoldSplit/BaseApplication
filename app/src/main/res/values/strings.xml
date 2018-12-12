@@ -4,6 +4,17 @@
     <string name="most_common_color">Most common color</string>
     <string name="avg_color">Average color</string>
     <string name="palette">Palette</string>
+    <string name="compute">Compute</string>
+    <string name="next">Next</string>
+    <string name="files">Files</string>
+    <string name="camera_preview_imageView">Preview of image taken by camera</string>
+    <string name="capture_button">Capture</string>
+    <string name="file_button_desc">Choose image from file</string>
+    <string name="file_imageButton_desc">Go to next page</string>
+    <string name="a_color">A color.</string>
+    <string name="main_file_button_desc">Load an image from file</string>
+    <string name="main_camera_button_desc">Take a picture with the camera</string>
+    <string name="nothing">Nothing yet</string>
 
     <string name="c_roll">Files</string>
 

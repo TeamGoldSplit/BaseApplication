@@ -81,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
         if(!state.equals(Environment.MEDIA_MOUNTED)) {
             return null;
         } else {
-            File folder_TGS = new File(Environment.getExternalStorageDirectory() + File.separator + "TeamGoldSplit");
+            File folder_TGS = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "TeamGoldSplit");
             File outPutFile = new File(folder_TGS, imageFileName);
             pathToFile = outPutFile.getAbsolutePath();
             return outPutFile;

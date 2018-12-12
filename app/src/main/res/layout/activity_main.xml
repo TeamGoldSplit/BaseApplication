@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_gravity="center"
         android:textColor="@color/colorAccent"/>
 
@@ -27,6 +27,7 @@
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_photo_camera_accent_72dp"
         android:layout_weight="1"
+        android:contentDescription="@string/main_camera_button_desc"
         />
 
     <Space
@@ -42,5 +43,6 @@
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_folder_open_accent_72dp"
         android:layout_weight="1"
+        android:contentDescription="@string/main_file_button_desc"
         />
 </LinearLayout>

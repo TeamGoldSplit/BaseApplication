@@ -41,10 +41,9 @@ public class OperationsActivity extends AppCompatActivity {
         spinner = (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
-//        Bundle extras = getIntent().getExtras();
-//        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
-        // bmp = (Bitmap)getIntent().getParcelableExtra("imageView");
-        bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg");
+        Bundle extras = getIntent().getExtras();
+        bmp = (Bitmap)getIntent().getParcelableExtra("imageView");
+//        bmp = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg");
         ImageView fileImage = (ImageView) findViewById(R.id.image_view);
         fileImage.setImageBitmap(bmp);
 

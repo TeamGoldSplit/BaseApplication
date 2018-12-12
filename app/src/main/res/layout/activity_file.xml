@@ -32,7 +32,8 @@
 
 <!--</android.support.design.widget.CoordinatorLayout>-->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,46 +42,53 @@
     android:padding="@dimen/activity_padding"
     tools:context=".FileActivity">
 
-    <!--opsButton-->
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/ops_button"-->
-        <!--android:text="Continue" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/ops2_button"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="165dp"
-            android:layout_height="98dp"
-            android:text="@string/c_roll" />
+    <Button
+        android:id="@+id/ops2_button"
+        android:contentDescription="@string/file_button_desc"
+        android:background="@color/colorPrimary"
+        android:layout_width="165dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/c_roll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" /> -->
 
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="234dp"
-            android:layout_height="166dp"
-            android:contentDescription="@null"
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="8dp"
 
-            />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ops_button"
-            android:background="@color/colorPrimary"
-            android:src="@drawable/ic_arrow_forward_accent_48dp"
-            android:layout_gravity="center_horizontal|bottom"
-            />
-    </LinearLayout>
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toTopOf="@+id/ops_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ops2_button" />
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/ops_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="44dp"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_arrow_forward_accent_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/file_imageButton_desc"/>
+</android.support.constraint.ConstraintLayout>

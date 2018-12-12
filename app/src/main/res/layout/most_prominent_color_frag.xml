@@ -10,20 +10,19 @@
 
     <ImageView
         android:id="@+id/single_color"
-        android:layout_width="match_parent"
-        android:layout_height="316dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp"
-        android:contentDescription="A color"
-        app:layout_constraintBottom_toTopOf="@+id/prominent_hex"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/a_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/prominent_hex"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="88dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="38dp"

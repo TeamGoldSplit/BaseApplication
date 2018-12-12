@@ -26,11 +26,7 @@ public class FinalActivity extends FragmentActivity {
     private Button topButton;
     ColorPagerAdapter colorPagerAdapter;
     private ViewPager cViewPager;
-    private ImageView imgView;
-    private ImageView imgView1;
-    private ImageView imgView2;
 
-    private ImageView[] views;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)

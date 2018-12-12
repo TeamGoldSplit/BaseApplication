@@ -34,27 +34,33 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="381dp"
-        android:layout_height="294dp"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
         android:layout_marginStart="8dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="116dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/compute_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:background="@color/colorPrimary"
-            android:text="Compute"
-            android:textColor="@color/colorAccent" />
+    <Button
+        android:id="@+id/compute_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/compute"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
 
     <!--backButton-->

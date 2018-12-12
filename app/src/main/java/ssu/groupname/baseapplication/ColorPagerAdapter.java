@@ -36,9 +36,9 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position){
         switch (position){
             case 0: return "Result of Decomposition";
-            case 1: return "Most Common Color";
-            case 2: return "Six Most Common Colors";
-            case 3: return "Palette from Most Common Color";
+            case 1: return "Most Prominent Color";
+            case 2: return "Six Most Prominent Colors";
+            case 3: return "Palette from Most Prominent Color";
         }
         return "OBJECT" + (position + 1);
     }

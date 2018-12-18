@@ -46,12 +46,6 @@ public class FinalActivity extends FragmentActivity {
             }
         });
 
-        String[] bmpFileNames = new String[6];
-        Bitmap bmp = null;
-        for(int i = 0; i < 6; i++){
-            String filename = getIntent().getStringExtra("color_image" + Integer.toString(i));
-            bmpFileNames[i] = filename;
-        }
         colorPagerAdapter = new ColorPagerAdapter(getSupportFragmentManager());
         cViewPager = findViewById(R.id.final_pager);
         cViewPager.setAdapter(colorPagerAdapter);

@@ -2,10 +2,7 @@ package ssu.groupname.baseapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class GSColor {
 
     private int red, green, blue;

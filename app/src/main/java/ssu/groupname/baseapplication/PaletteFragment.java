@@ -97,12 +97,12 @@ public class PaletteFragment extends Fragment {
         title = getArguments().getString("title");
         bmpFileNames = getArguments().getStringArray("bmpFileNames");
         try {
-            bmp0 = loadBMP(bmpFileNames[5], getActivity());
-            bmp1 = loadBMP(bmpFileNames[4], getActivity());
-            bmp2 = loadBMP(bmpFileNames[3], getActivity());
-            bmp3 = loadBMP(bmpFileNames[2], getActivity());
-            bmp4 = loadBMP(bmpFileNames[1], getActivity());
-            bmp5 = loadBMP(bmpFileNames[0], getActivity());
+            bmp0 = loadBMP(bmpFileNames[0], getActivity());
+            bmp1 = loadBMP(bmpFileNames[1], getActivity());
+            bmp2 = loadBMP(bmpFileNames[2], getActivity());
+            bmp3 = loadBMP(bmpFileNames[3], getActivity());
+            bmp4 = loadBMP(bmpFileNames[4], getActivity());
+            bmp5 = loadBMP(bmpFileNames[5], getActivity());
         } catch (Exception e){
             e.printStackTrace();
         }

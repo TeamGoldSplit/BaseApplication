@@ -10,62 +10,53 @@
 
 
     <GridLayout
-        android:id="@+id/gridLayout"
+        android:id="@+id/gridLayout69"
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="96dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
         android:columnCount="3"
         android:rowCount="2"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/gen_palette0"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/a_color"
-            />
+            android:contentDescription="@string/a_color" />
 
         <ImageView
             android:id="@+id/gen_palette1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/a_color"
-            />
+            android:contentDescription="@string/a_color" />
 
         <ImageView
             android:id="@+id/gen_palette2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/a_color"
-            />
+            android:contentDescription="@string/a_color" />
 
         <ImageView
             android:id="@+id/gen_palette3"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/a_color"
-            />
+            android:contentDescription="@string/a_color" />
 
         <ImageView
             android:id="@+id/gen_palette4"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/a_color"
-            />
+            android:contentDescription="@string/a_color" />
 
         <ImageView
             android:id="@+id/gen_palette5"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/a_color"
-            />
+            android:contentDescription="@string/a_color" />
 
 
     </GridLayout>
@@ -75,13 +66,15 @@
         android:layout_width="330dp"
         android:layout_height="120dp"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="72dp"
         android:columnCount="3"
         android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridLayout69">
 
         <TextView
             android:id="@+id/gen_palette0_hex"
@@ -134,23 +127,5 @@
 
 
 
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:textAlignment="center"-->
-    <!--android:text=""/>-->
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:textAlignment="center"-->
-    <!--android:text="PALETTE"/>-->
 
 </android.support.constraint.ConstraintLayout>
-
-    <!--android:layout_marginTop="70dp"-->

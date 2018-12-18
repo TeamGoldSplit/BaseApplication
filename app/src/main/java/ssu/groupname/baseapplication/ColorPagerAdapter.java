@@ -13,11 +13,16 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i){
         String[] calculatedColors = {"color0.png","color1.png","color2.png","color3.png","color4.png","color5.png"};
         switch (i) {
-            case 0: return KMeansImageFragment.newInstance(1, "KMeansImageFragment", "kmeans_output.png");
-            case 1: return ProminentColorFragment.newInstance(2,"ProminentColorFragment", "color5.png");
-            case 2: return PaletteFragment.newInstance(3,"PaletteFragment", calculatedColors);
-            case 3: return GeneratedPaletteFragment.newInstance(4,"GeneratedPaletteFragment", calculatedColors);
-            case 4: return ProminentColorFragment.newInstance(4,"ProminentColorFragment, Instance 4", "color0.png");
+            case 0: return KMeansImageFragment.newInstance(1, "KMeansImageFragment", "original_image.jpg");
+            case 1: return KMeansImageFragment.newInstance(2, "KMeansImageFragment", "kmeans_output.jpg");
+            case 2: return ProminentColorFragment.newInstance(3,"ProminentColorFragment", "color0.png");
+            case 3: return PaletteFragment.newInstance(4,"PaletteFragment", calculatedColors);
+            case 4: return GeneratedPaletteFragment.newInstance(5,"GeneratedPaletteFragment, Instance 1",  0);
+            case 5: return GeneratedPaletteFragment.newInstance(6,"GeneratedPaletteFragment, Instance 2",  1);
+            case 6: return GeneratedPaletteFragment.newInstance(7,"GeneratedPaletteFragment, Instance 3",  2);
+            case 7: return GeneratedPaletteFragment.newInstance(8,"GeneratedPaletteFragment, Instance 4",  3);
+            case 8: return GeneratedPaletteFragment.newInstance(9,"GeneratedPaletteFragment, Instance 5",  4);
+            case 9: return GeneratedPaletteFragment.newInstance(10,"GeneratedPaletteFragment, Instance 6",  5);
             default: return ProminentColorFragment.newInstance(0, "ProminentColorFragment, Default", "color0.png");
         }
 //        Fragment fragment = new ProminentColorFragment();
@@ -29,16 +34,22 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount(){
-        return 4;
+        return 10;
     }
 
     @Override
     public CharSequence getPageTitle(int position){
         switch (position){
-            case 0: return "Result of Decomposition";
-            case 1: return "Most Prominent Color";
-            case 2: return "Six Most Prominent Colors";
-            case 3: return "Palette from Most Prominent Color";
+            case 0: return "Original Image (Resized)";
+            case 1: return "Result of Decomposition";
+            case 2: return "Most Prominent Color";
+            case 3: return "Six Most Prominent Colors";
+            case 4: return "Palette from Color 1";
+            case 5: return "Palette from Color 2";
+            case 6: return "Palette from Color 3";
+            case 7: return "Palette from Color 4";
+            case 8: return "Palette from Color 5";
+            case 9: return "Palette from Color 6";
         }
         return "OBJECT" + (position + 1);
     }

@@ -51,6 +51,7 @@ public class CameraActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent cIntent = new Intent(CameraActivity.this, OperationsActivity.class);
+                cIntent.putExtra("cameraOrFile", "camera");
                 startActivity(cIntent);
             }
         });
@@ -67,9 +68,7 @@ public class CameraActivity extends AppCompatActivity {
                     fos.write(data);
                     fos.close();
                     camera.startPreview();
-                } catch(FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch(Exception e) {
                     e.printStackTrace();
                 }
             }

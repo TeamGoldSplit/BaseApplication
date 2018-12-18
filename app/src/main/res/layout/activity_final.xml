@@ -57,24 +57,6 @@
 
             </android.support.v4.view.PagerTitleStrip>
 
-
-            <ImageView
-                android:id="@+id/final_color_solid1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="70dp"
-                android:contentDescription="@string/a_color" />
-
-            <ImageView
-                android:id="@+id/final_color_solid2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="70dp"
-                android:contentDescription="@string/a_color" />
         </android.support.v4.view.ViewPager>
 
 

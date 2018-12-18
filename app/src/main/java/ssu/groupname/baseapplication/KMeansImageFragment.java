@@ -25,12 +25,12 @@ public class KMeansImageFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View rootView = inflater.inflate(R.layout.most_prominent_color_frag, container, false);
+        View rootView = inflater.inflate(R.layout.kmeans_image_frag, container, false);
         Bundle args = getArguments();
 
         assert args != null;
 
-        ImageView imgView = (ImageView) rootView.findViewById(R.id.single_color);
+        ImageView imgView = (ImageView) rootView.findViewById(R.id.kmeans_imageView);
         imgView.setImageBitmap(bmp);
 
         return rootView;

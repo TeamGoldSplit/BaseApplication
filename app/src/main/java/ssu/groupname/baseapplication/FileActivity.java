@@ -45,8 +45,6 @@ public class FileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 100;
     private String filename = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg";
 
-    private String pictureDirectoryPath;
-    private File pictureDirectory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +62,9 @@ public class FileActivity extends AppCompatActivity {
         opsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent opsIntent = new Intent(FileActivity.this, OperationsActivity.class);
-
-                Drawable drawable = imageView.getDrawable();
-                Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//                byte[] b = baos.toByteArray();
-                //saveBMP(filename, bitmap, FileActivity.this);
-//                try (FileOutputStream out = new FileOutputStream((filename))){
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//                } catch (IOException e){
-//                    e.printStackTrace();
-//                }
-
                 Intent intent = new Intent(FileActivity.this, OperationsActivity.class);
-                intent.putExtra("imageView", bitmap);
+                intent.putExtra("imageUri", imageUri.toString());
+                intent.putExtra("cameraOrFile", "file");
                 startActivity(intent);
 
             }
@@ -115,8 +100,6 @@ public class FileActivity extends AppCompatActivity {
             //listening to hear back from image gallery
             imageUri = data.getData();
             //display the image
-            //imageView.setImageURI(imageUri);
-
             // converts uri to stream
             InputStream pictureInputStream;
             try{
@@ -145,20 +128,21 @@ public class FileActivity extends AppCompatActivity {
             success = storageDir.mkdirs();
         }
         if (success) {
-            File imageFile = new File(storageDir, imageFileName);
-            savedImagePath = imageFile.getAbsolutePath();
-            try {
-                OutputStream fOut = new FileOutputStream(imageFile);
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                fOut.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            File imageFile = new File(storageDir, imageFileName);
+//            savedImagePath = imageFile.getAbsolutePath();
+//            try {
+//                OutputStream fOut = new FileOutputStream(imageFile);
+//                bmp.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+//                fOut.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             // Add the image to the system gallery
             galleryAddPic(savedImagePath);
             //Toast.makeText(context, "IMAGE SAVED", Toast.LENGTH_LONG).show();
         }
+
         return savedImagePath;
 //        Bitmap saveBMP = null;
 //        try{

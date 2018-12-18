@@ -3,7 +3,6 @@ package ssu.groupname.baseapplication;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.util.Log;
 
 import org.opencv.android.Utils;
@@ -29,12 +28,19 @@ class ColorCalcTask {
         //Resize for easier computation
         int maxWidth;
         switch (quality){
-            case 0: maxWidth = 200;
-            case 1: maxWidth = 400;
-            case 2: maxWidth = 800;
+            case 0: maxWidth = 1600;
+            case 1: maxWidth = 3200;
+            case 2: maxWidth = 6400;
             default: maxWidth = 200;
         }
-        Bitmap resized = getResizedBitmap(bmp, maxWidth);
+        Bitmap resized;
+        if(bmp.getWidth() > maxWidth){
+            resized = getResizedBitmap(bmp, maxWidth);
+        }else{
+            resized = bmp;
+        }
+
+        save("original_image.jpg", resized, context);
         Utils.bitmapToMat(resized, rgba);
         Mat rgb = new Mat();
         Mat imgLab = new Mat();
@@ -49,7 +55,6 @@ class ColorCalcTask {
         int n = rgb.rows() * rgb.cols();
         Mat data = rgb.reshape(1, n);
         data.convertTo(data, CvType.CV_32F);
-        //samples.convertTo(data, CvType.CV_32F, 1.0 / 255.0);
 
         Mat labels = new Mat();
         TermCriteria criteria = new TermCriteria(TermCriteria.EPS + TermCriteria.MAX_ITER, 100, 1);
@@ -58,11 +63,11 @@ class ColorCalcTask {
 
 //DO THE THING
         Core.kmeans(data, 6, labels, criteria, 10, Core.KMEANS_PP_CENTERS, colors);
-        Log.i("labels first element", Double.toString(labels.get(0,0)[0]));
-        Log.i("AH", "rows, cols in rgb: " + Integer.toString(rgb.rows()) + ", " + Integer.toString(rgb.cols()));
-        Log.i("AH", "rows, cols in data: " + Integer.toString(data.rows()) + ", " + Integer.toString(data.cols()));
-        Log.i("AH", "rows, cols in labels: " + Integer.toString(labels.rows()) + ", " + Integer.toString(labels.cols()));
-        Log.i("AH", "rows, cols in colors: " + Integer.toString(colors.rows()) + ", " + Integer.toString(colors.cols()));
+//        Log.i("labels first element", Double.toString(labels.get(0,0)[0]));
+//        Log.i("AH", "rows, cols in rgb: " + Integer.toString(rgb.rows()) + ", " + Integer.toString(rgb.cols()));
+//        Log.i("AH", "rows, cols in data: " + Integer.toString(data.rows()) + ", " + Integer.toString(data.cols()));
+//        Log.i("AH", "rows, cols in labels: " + Integer.toString(labels.rows()) + ", " + Integer.toString(labels.cols()));
+//        Log.i("AH", "rows, cols in colors: " + Integer.toString(colors.rows()) + ", " + Integer.toString(colors.cols()));
 
 //OPERATE ON THE DATA
         for(int i = 0; i < n; i++){
@@ -78,7 +83,7 @@ class ColorCalcTask {
         Bitmap output = Bitmap.createBitmap(reduced.cols(), reduced.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(reduced, output);
 
-        save("kmeans_output.png", output, context);
+        save("kmeans_output.jpg", output, context);
 
         colors.convertTo(colors, CvType.CV_8UC1);
         colors.reshape(3);
@@ -113,7 +118,7 @@ class ColorCalcTask {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    public void generatePalette(int[] seed, Context context){
+    void generatePalette(int[] seed, Context context, int colorID){
 
         float[] hsv0 = new float[3];
         Color.RGBToHSV(seed[0], seed[1], seed[2], hsv0);
@@ -135,9 +140,9 @@ class ColorCalcTask {
 
         float valueIncrement;
         if(hsv0[2] < .5)
-            valueIncrement = -1/8f;
-        else
             valueIncrement = 1/8f;
+        else
+            valueIncrement = -1/8f;
 
         hsv1[0] = (hsv0[0] + hueIncrement2)%360f;
         hsv2[0] = (hsv0[0] + (2*hueIncrement2))%360f;
@@ -179,35 +184,31 @@ class ColorCalcTask {
         bmp4.eraseColor(Color.HSVToColor(hsv4));
         Bitmap bmp5 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
         bmp5.eraseColor(Color.HSVToColor(hsv5));
-        save("generatedPalette0", bmp0, context);
-        save("generatedPalette1", bmp1, context);
-        save("generatedPalette2", bmp2, context);
-        save("generatedPalette3", bmp3, context);
-        save("generatedPalette4", bmp4, context);
-        save("generatedPalette5", bmp5, context);
+
 
         String[] hexCodes = new String[6];
         for(int i = 0; i < 6; i++){
             hexCodes[i] = buildHex(Color.HSVToColor(hsvs.get(i)));
         }
-        writeToFile("gen_palette_hexes.txt", hexCodes, context);
+        writeToFile("gen_palette_hexes.txt" + Integer.toString(colorID), hexCodes, context);
     }
 
 
 
 
     private static void save(String filename, Bitmap bmp, Context context){
+        //THIS WORKS, but the file is pretty damn compressed. I'm trying a method that doesn't compress
         FileOutputStream fileOut;
-        Bitmap saveBMP = null;
+        Bitmap saveBMP;
         try{
             //write
             fileOut = context.openFileOutput(filename, Context.MODE_PRIVATE);
             saveBMP = bmp;
-            saveBMP.compress(Bitmap.CompressFormat.PNG, 100, fileOut);
+            saveBMP.compress(Bitmap.CompressFormat.JPEG, 100, fileOut);
 
             //cleanup
             fileOut.close();
-            bmp.recycle();
+            //saveBMP.recycle();
 
         } catch (Exception e){
             e.printStackTrace();

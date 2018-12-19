@@ -3,6 +3,7 @@ package ssu.groupname.baseapplication;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,9 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class PaletteFragment extends Fragment {
-    private String title;
-    private int page;
-    private String[] bmpFileNames;
     private String[] hexCodes;
 
     private Bitmap bmp0;
@@ -93,27 +91,6 @@ public class PaletteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        page = getArguments().getInt("page_number");
-        title = getArguments().getString("title");
-        bmpFileNames = getArguments().getStringArray("bmpFileNames");
-        try {
-            bmp0 = loadBMP(bmpFileNames[0], getActivity());
-            bmp1 = loadBMP(bmpFileNames[1], getActivity());
-            bmp2 = loadBMP(bmpFileNames[2], getActivity());
-            bmp3 = loadBMP(bmpFileNames[3], getActivity());
-            bmp4 = loadBMP(bmpFileNames[4], getActivity());
-            bmp5 = loadBMP(bmpFileNames[5], getActivity());
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        bmp0 = getResizedBitmap(bmp0, 120);
-        bmp1 = getResizedBitmap(bmp1, 120);
-        bmp2 = getResizedBitmap(bmp2, 120);
-        bmp3 = getResizedBitmap(bmp3, 120);
-        bmp4 = getResizedBitmap(bmp4, 120);
-        bmp5 = getResizedBitmap(bmp5, 120);
-
         try {
             hexCodes = readFromFile(getActivity());
         } catch (Exception e){
@@ -125,6 +102,19 @@ public class PaletteFragment extends Fragment {
         hex3 = hexCodes[2];
         hex4 = hexCodes[1];
         hex5 = hexCodes[0];
+
+        bmp0 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp0.eraseColor(Color.parseColor(hex0));
+        bmp1 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp1.eraseColor(Color.parseColor(hex1));
+        bmp2 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp2.eraseColor(Color.parseColor(hex2));
+        bmp3 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp3.eraseColor(Color.parseColor(hex3));
+        bmp4 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp4.eraseColor(Color.parseColor(hex4));
+        bmp5 = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp5.eraseColor(Color.parseColor(hex5));
 
     }
 

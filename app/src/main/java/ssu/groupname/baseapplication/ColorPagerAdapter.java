@@ -17,12 +17,12 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
             case 1: return KMeansImageFragment.newInstance(2, "KMeansImageFragment", "kmeans_output.jpg");
             case 2: return ProminentColorFragment.newInstance(3,"ProminentColorFragment", "color0.png");
             case 3: return PaletteFragment.newInstance(4,"PaletteFragment", calculatedColors);
-            case 4: return GeneratedPaletteFragment.newInstance(5,"GeneratedPaletteFragment, Instance 1",  0);
-            case 5: return GeneratedPaletteFragment.newInstance(6,"GeneratedPaletteFragment, Instance 2",  1);
-            case 6: return GeneratedPaletteFragment.newInstance(7,"GeneratedPaletteFragment, Instance 3",  2);
-            case 7: return GeneratedPaletteFragment.newInstance(8,"GeneratedPaletteFragment, Instance 4",  3);
-            case 8: return GeneratedPaletteFragment.newInstance(9,"GeneratedPaletteFragment, Instance 5",  4);
-            case 9: return GeneratedPaletteFragment.newInstance(10,"GeneratedPaletteFragment, Instance 6",  5);
+            case 4: return GeneratedPaletteFragment.newInstance(5,"GeneratedPaletteFragment, Instance 1",  5);
+            case 5: return GeneratedPaletteFragment.newInstance(6,"GeneratedPaletteFragment, Instance 2",  4);
+            case 6: return GeneratedPaletteFragment.newInstance(7,"GeneratedPaletteFragment, Instance 3",  3);
+            case 7: return GeneratedPaletteFragment.newInstance(8,"GeneratedPaletteFragment, Instance 4",  2);
+            case 8: return GeneratedPaletteFragment.newInstance(9,"GeneratedPaletteFragment, Instance 5",  1);
+            case 9: return GeneratedPaletteFragment.newInstance(10,"GeneratedPaletteFragment, Instance 6",  0);
             default: return ProminentColorFragment.newInstance(0, "ProminentColorFragment, Default", "color0.png");
         }
 //        Fragment fragment = new ProminentColorFragment();

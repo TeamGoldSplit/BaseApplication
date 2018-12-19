@@ -22,8 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class GeneratedPaletteFragment extends Fragment {
-    private String title;
-    private int page;
     private String[] hexCodes;
     private int seedColorID;
 
@@ -94,8 +92,6 @@ public class GeneratedPaletteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        page = getArguments().getInt("page_number");
-        title = getArguments().getString("title");
         seedColorID = getArguments().getInt("seedColorID");
 
 

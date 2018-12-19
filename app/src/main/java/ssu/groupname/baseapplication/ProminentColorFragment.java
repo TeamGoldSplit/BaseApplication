@@ -3,6 +3,7 @@ package ssu.groupname.baseapplication;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -22,10 +23,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ProminentColorFragment extends Fragment {
-
-    private String title;
-    private int page;
-    private String bmpFile;
 
     private String hex0;
 
@@ -64,30 +61,17 @@ public class ProminentColorFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        page = getArguments().getInt("page_number");
-        title = getArguments().getString("title");
-        bmpFile = getArguments().getString("bmpFileName");
-        bmp = load(bmpFile, getActivity());
+
         try {
             hexCodes = readFromFile(getActivity());
         } catch (Exception e){
             e.printStackTrace();
         }
-        hex0 = hexCodes[0];
+        hex0 = hexCodes[5];
 
-    }
+        bmp = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
+        bmp.eraseColor(Color.parseColor(hex0));
 
-    public static Bitmap load(String filename, Context context){
-        FileInputStream fileIn;
-        Bitmap bmp = null;
-        try{
-            fileIn = context.openFileInput(filename);
-            bmp = BitmapFactory.decodeStream(fileIn);
-            fileIn.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return bmp;
     }
 
     private String[] readFromFile(Context context) {

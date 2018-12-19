@@ -14,10 +14,12 @@ import android.widget.Button;
 
 import android.widget.ProgressBar;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +40,7 @@ public class OperationsActivity extends AppCompatActivity {
     private ImageView fileImage;
     private Bitmap bmp;
     private Uri imageUri;
+    File cameraImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class OperationsActivity extends AppCompatActivity {
         //Bundle extras = getIntent().getExtras();
         //Check if we came from camera or file Activity
         String cameraOrFile = getIntent().getExtras().getString("cameraOrFile");
+        Serializable s = getIntent().getExtras().getSerializable("imgFile");
+        cameraImage = (File)s;
         switch (cameraOrFile) {
             case "file":
                 imageUri = Uri.parse(getIntent().getExtras().getString("imageUri"));
@@ -67,7 +72,8 @@ public class OperationsActivity extends AppCompatActivity {
                 break;
             case "camera":
 //                bmp = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg");
-                bmp = load(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg", OperationsActivity.this);
+
+                bmp = load(cameraImage.getAbsolutePath(), OperationsActivity.this);
                 break;
             default:
                 Log.d("cameraOrFile", "onCreate: ERROR cameraOrFile Extra not parsed correctly");

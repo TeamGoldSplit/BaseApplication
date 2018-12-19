@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
 public class CameraActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class CameraActivity extends AppCompatActivity {
     FrameLayout cameraScreen;
     ShowCamera showCamera;
     String pathToFile;
+    File imgFile;
+    Button cBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +34,9 @@ public class CameraActivity extends AppCompatActivity {
         camera = Camera.open();
         showCamera = new ShowCamera(this, camera);
         cameraScreen.addView(showCamera);
-//
-//        Button btn = (Button)findViewById(R.id.captureButton);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                captureImage(v);
-//            }
-//        });
 
-        Button cBtn = (Button)findViewById(R.id.captureButton);
+
+        cBtn = (Button)findViewById(R.id.captureButton);
         cBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +48,7 @@ public class CameraActivity extends AppCompatActivity {
                 }
                 Intent cIntent = new Intent(CameraActivity.this, OperationsActivity.class);
                 cIntent.putExtra("cameraOrFile", "camera");
+                cIntent.putExtra("imgFile", imgFile);
                 startActivity(cIntent);
             }
         });
@@ -60,11 +57,17 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             File picture_file = getOutPutMediaFile();
+            try {
+                picture_file.createNewFile();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            deleteFiles(pathToFile);
             if(picture_file == null) {
                 return;
             } else {
                 try {
-                    FileOutputStream fos = new FileOutputStream(picture_file);
+                    OutputStream fos = new FileOutputStream(picture_file);
                     fos.write(data);
                     fos.close();
                     camera.startPreview();
@@ -81,14 +84,33 @@ public class CameraActivity extends AppCompatActivity {
             return null;
         } else {
             File folder_TGS = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "TeamGoldSplit");
+            try {
+                folder_TGS.mkdirs();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
             File outPutFile = new File(folder_TGS, imageFileName);
-            pathToFile = outPutFile.getAbsolutePath();
+            imgFile = outPutFile;
+            new File(pathToFile = outPutFile.getAbsolutePath());
             return outPutFile;
         }
     }
     public void captureImage(View v) {
         if(camera != null) {
             camera.takePicture(null, null, mPictureCallBack);
+        }
+    }
+
+    public static void deleteFiles(String path) {
+
+        File file = new File(path);
+
+        if (file.exists()) {
+            String deleteCmd = "rm -r " + path;
+            Runtime runtime = Runtime.getRuntime();
+            try {
+                runtime.exec(deleteCmd);
+            } catch (IOException e) { }
         }
     }
 }

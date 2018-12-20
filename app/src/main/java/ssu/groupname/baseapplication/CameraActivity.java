@@ -23,7 +23,6 @@ public class CameraActivity extends AppCompatActivity {
     FrameLayout cameraScreen;
     ShowCamera showCamera;
     String pathToFile;
-    File imgFile;
     Button cBtn;
 
     @Override
@@ -48,7 +47,7 @@ public class CameraActivity extends AppCompatActivity {
                 }
                 Intent cIntent = new Intent(CameraActivity.this, OperationsActivity.class);
                 cIntent.putExtra("cameraOrFile", "camera");
-                cIntent.putExtra("imgFile", imgFile);
+                cIntent.putExtra("imgFilePath", pathToFile);
                 startActivity(cIntent);
             }
         });
@@ -56,18 +55,17 @@ public class CameraActivity extends AppCompatActivity {
     Camera.PictureCallback mPictureCallBack = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+            //deleteFiles("/storage/emulated/0/Pictures/TeamGoldSplit/");
             File picture_file = getOutPutMediaFile();
-            try {
-                picture_file.createNewFile();
-            } catch (Exception e){
-                e.printStackTrace();
+            if(picture_file.exists()){
+                picture_file.delete();
             }
-            deleteFiles(pathToFile);
             if(picture_file == null) {
                 return;
             } else {
+                FileOutputStream fos = null;
                 try {
-                    OutputStream fos = new FileOutputStream(picture_file);
+                    fos = new FileOutputStream(picture_file.getPath());
                     fos.write(data);
                     fos.close();
                     camera.startPreview();
@@ -90,8 +88,12 @@ public class CameraActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             File outPutFile = new File(folder_TGS, imageFileName);
-            imgFile = outPutFile;
-            new File(pathToFile = outPutFile.getAbsolutePath());
+            try{
+                pathToFile = outPutFile.getAbsolutePath();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
             return outPutFile;
         }
     }

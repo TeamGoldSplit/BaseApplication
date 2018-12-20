@@ -25,11 +25,6 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
             case 9: return GeneratedPaletteFragment.newInstance(10,"GeneratedPaletteFragment, Instance 6",  0);
             default: return ProminentColorFragment.newInstance(0, "ProminentColorFragment, Default", "color0.png");
         }
-//        Fragment fragment = new ProminentColorFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ProminentColorFragment.ARG_OBJECT, i + 1);
-//        fragment.setArguments(args);
-//        return fragment;
     }
 
     @Override

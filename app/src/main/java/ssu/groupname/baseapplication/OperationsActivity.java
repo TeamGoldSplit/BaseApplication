@@ -27,6 +27,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import static android.os.Environment.getExternalStoragePublicDirectory;
+
 
 public class OperationsActivity extends AppCompatActivity {
 
@@ -40,6 +42,7 @@ public class OperationsActivity extends AppCompatActivity {
     private ImageView fileImage;
     private Bitmap bmp;
     private Uri imageUri;
+    String imgFilePath = "/storage/emulated/0/TeamGoldSplit/temp.jpg";
     File cameraImage;
 
     @Override
@@ -50,11 +53,10 @@ public class OperationsActivity extends AppCompatActivity {
         spinner = (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
-        //Bundle extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
         //Check if we came from camera or file Activity
-        String cameraOrFile = getIntent().getExtras().getString("cameraOrFile");
-        Serializable s = getIntent().getExtras().getSerializable("imgFile");
-        cameraImage = (File)s;
+        String cameraOrFile = extras.getString("cameraOrFile");
+//        imgFilePath = extras.getString("imgFilePath");
         switch (cameraOrFile) {
             case "file":
                 imageUri = Uri.parse(getIntent().getExtras().getString("imageUri"));
@@ -71,9 +73,10 @@ public class OperationsActivity extends AppCompatActivity {
                 }
                 break;
             case "camera":
-//                bmp = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg");
+                //load image from file
+                bmp = BitmapFactory.decodeFile(getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg");
 
-                bmp = load(cameraImage.getAbsolutePath(), OperationsActivity.this);
+//                bmp = load(imgFilePath, OperationsActivity.this);
                 break;
             default:
                 Log.d("cameraOrFile", "onCreate: ERROR cameraOrFile Extra not parsed correctly");
@@ -154,6 +157,13 @@ public class OperationsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent topIntent = new Intent(OperationsActivity.this, MainActivity.class);
+        topIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(topIntent);
+    }
+
     public static void save(String filename, Bitmap bmp, Context context){
         FileOutputStream fileOut;
         Bitmap saveBMP = null;
@@ -173,10 +183,14 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public static Bitmap load(String filename, Context context){
-        FileInputStream fileIn;
+        FileInputStream fileIn = null;
+        try {
+            fileIn = new FileInputStream(new File(filename));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Bitmap bmp = null;
         try{
-            fileIn = context.openFileInput(filename);
             bmp = BitmapFactory.decodeStream(fileIn);
             fileIn.close();
         } catch (Exception e){

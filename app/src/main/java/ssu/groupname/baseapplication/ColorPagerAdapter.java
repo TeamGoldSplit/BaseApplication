@@ -1,8 +1,12 @@
 package ssu.groupname.baseapplication;
 
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import static android.os.Environment.getExternalStorageDirectory;
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class ColorPagerAdapter extends FragmentPagerAdapter {
     ColorPagerAdapter(FragmentManager fm){
@@ -13,8 +17,8 @@ public class ColorPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i){
         String[] calculatedColors = {"color0.png","color1.png","color2.png","color3.png","color4.png","color5.png"};
         switch (i) {
-            case 0: return KMeansImageFragment.newInstance(1, "KMeansImageFragment", "original_image.jpg");
-            case 1: return KMeansImageFragment.newInstance(2, "KMeansImageFragment", "kmeans_output.jpg");
+            case 0: return OriginalImageFragment.newInstance(1, "OriginalImageFragment", getExternalStorageDirectory() + "/TeamGoldSplit/temp");
+            case 1: return KMeansImageFragment.newInstance(2, "KMeansImageFragment", getExternalStorageDirectory() + "/TeamGoldSplit/kmeans");
             case 2: return ProminentColorFragment.newInstance(3,"ProminentColorFragment", "color0.png");
             case 3: return PaletteFragment.newInstance(4,"PaletteFragment", calculatedColors);
             case 4: return GeneratedPaletteFragment.newInstance(5,"GeneratedPaletteFragment, Instance 1",  5);

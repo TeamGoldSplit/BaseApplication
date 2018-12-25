@@ -3,6 +3,7 @@ package ssu.groupname.baseapplication;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Environment;
 import android.util.Log;
 
 import org.opencv.android.Utils;
@@ -12,9 +13,12 @@ import org.opencv.core.Mat;
 import org.opencv.core.TermCriteria;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 
@@ -83,7 +87,12 @@ class ColorCalcTask {
         Bitmap output = Bitmap.createBitmap(reduced.cols(), reduced.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(reduced, output);
 
-        save("kmeans_output.jpg", output, context);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        output.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] outputByteArray = stream.toByteArray();
+        BitmapIO bIO = new BitmapIO();
+        bIO.storeImage(outputByteArray, "kmeans");
 
         colors.convertTo(colors, CvType.CV_8UC1);
         colors.reshape(3);
@@ -215,6 +224,7 @@ class ColorCalcTask {
         }
     }
 
+
     private void writeToFile(String filename, String[] data,Context context) {
         OutputStreamWriter outputStreamWriter;
         try {
@@ -244,4 +254,5 @@ class ColorCalcTask {
         }
         writeToFile("decomposed_colors_hex.txt", data, context);
     }
+
 }

@@ -22,7 +22,7 @@ public class PictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_camera);
 
-        imgPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg";
+        imgPath = Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg";
         File imgFile = new File(imgPath);
         if (imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());

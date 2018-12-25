@@ -43,7 +43,7 @@ public class FileActivity extends AppCompatActivity {
     private Bitmap Bitimage;
     private ImageView imageView;
     private static final int PICK_IMAGE = 100;
-    private String filename = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg";
+    private String filename = Environment.getExternalStorageDirectory() + "/TeamGoldSplit/temp.jpeg";
 
 
     @Override
@@ -64,7 +64,7 @@ public class FileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FileActivity.this, OperationsActivity.class);
                 intent.putExtra("imageUri", imageUri.toString());
-                intent.putExtra("cameraOrFile", "file");
+                intent.putExtra("fileOrCamera", "file");
                 startActivity(intent);
 
             }
@@ -122,7 +122,7 @@ public class FileActivity extends AppCompatActivity {
     public String saveBMP(String filename, Bitmap bmp, Context context){
         String savedImagePath = null;
         String imageFileName = "temp.jpeg";
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/");
+        File storageDir = new File(Environment.getExternalStorageDirectory() + "/TeamGoldSplit/");
         boolean success = true;
         if (!storageDir.exists()) {
             success = storageDir.mkdirs();

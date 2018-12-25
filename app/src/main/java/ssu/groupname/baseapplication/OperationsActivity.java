@@ -20,13 +20,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import static android.os.Environment.getExternalStorageDirectory;
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
 
@@ -41,9 +44,10 @@ public class OperationsActivity extends AppCompatActivity {
     private ProgressBar spinner;
     private ImageView fileImage;
     private Bitmap bmp;
-    private Uri imageUri;
-    String imgFilePath = "/storage/emulated/0/TeamGoldSplit/temp.jpg";
-    File cameraImage;
+    private String fileOrCamera;
+    private Uri originalURI;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,57 +57,32 @@ public class OperationsActivity extends AppCompatActivity {
         spinner = (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
 
+        fileImage = (ImageView) findViewById(R.id.image_view);
+
         Bundle extras = getIntent().getExtras();
         //Check if we came from camera or file Activity
-        String cameraOrFile = extras.getString("cameraOrFile");
+        fileOrCamera = extras.getString("fileOrCamera");
 //        imgFilePath = extras.getString("imgFilePath");
-        switch (cameraOrFile) {
+        BitmapIO bIO = new BitmapIO();
+        switch (fileOrCamera) {
             case "file":
-                imageUri = Uri.parse(getIntent().getExtras().getString("imageUri"));
-                // converts uri to stream
-                InputStream pictureInputStream;
-                try {
-                    //convert the URI to a stream
-                    pictureInputStream = getContentResolver().openInputStream(imageUri);
-
-                    //open image as bitmap
-                    bmp = BitmapFactory.decodeStream(pictureInputStream);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                originalURI = Uri.parse(getIntent().getExtras().getString("imageUri"));
+                //open image as bitmap
+                bmp = bIO.loadBMPFromFile(originalURI, OperationsActivity.this);
+                fileImage.setImageBitmap(bmp);
                 break;
             case "camera":
                 //load image from file
-                bmp = BitmapFactory.decodeFile(getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/TeamGoldSplit/temp.jpeg");
+                bmp = bIO.loadBMPFromFile(getExternalStorageDirectory() + "/TeamGoldSplit/temp", OperationsActivity.this);
+                fileImage.setImageBitmap(bmp);
+                fileImage.setRotation(90f);
 
-//                bmp = load(imgFilePath, OperationsActivity.this);
                 break;
             default:
                 Log.d("cameraOrFile", "onCreate: ERROR cameraOrFile Extra not parsed correctly");
                 break;
         }
 
-        ImageView fileImage = (ImageView) findViewById(R.id.image_view);
-        fileImage.setImageBitmap(bmp);
-
-
-       // Intent intent = getIntent();
-        //origin = intent.getStringExtra("origin");
-
-        //fileImage = (ImageVientent.getStringExtra("origin");w) findViewById(R.id.image_view);
-        //backButton
-        /*backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent backIntent;
-                if (origin == "camera")
-                    backIntent = new Intent(OperationsActivity.this, CameraActivity.class);
-                else //yeah this is kinda sloppy but I don't wanna write the exception catching rn
-                    backIntent = new Intent(OperationsActivity.this, FileActivity.class);
-                startActivity(backIntent);
-            }
-        });*/
 
         //IMAGE VIEW
 
@@ -125,7 +104,19 @@ public class OperationsActivity extends AppCompatActivity {
                 if(highQual.isChecked())
                     quality = 2;
                 ArrayList<int[]> colors = new ColorCalcTask().kMeans(bmp, OperationsActivity.this, quality);
+
+
                 Intent computeIntent = new Intent(OperationsActivity.this, FinalActivity.class);
+                switch (fileOrCamera){
+                    case "file":
+                        computeIntent.putExtra("fileOrCamera", "file");
+                        computeIntent.putExtra("originalURI", originalURI);
+                        break;
+                    case "camera":
+                        computeIntent.putExtra("fileOrCamera", "camera");
+                        break;
+                }
+
                 for(int i = 0; i < 6; i++){
 //                    computeIntent.putExtra("Color" + Integer.toString(i), colors.get(i));
 //                    Bitmap bmp = new GSColor(colors.get(i)[0],colors.get(i)[1],colors.get(i)[2]).getBmp();
@@ -162,41 +153,6 @@ public class OperationsActivity extends AppCompatActivity {
         Intent topIntent = new Intent(OperationsActivity.this, MainActivity.class);
         topIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(topIntent);
-    }
-
-    public static void save(String filename, Bitmap bmp, Context context){
-        FileOutputStream fileOut;
-        Bitmap saveBMP = null;
-        try{
-            //write
-            fileOut = context.openFileOutput(filename, Context.MODE_PRIVATE);
-            saveBMP = bmp;
-            saveBMP.compress(Bitmap.CompressFormat.PNG, 100, fileOut);
-
-            //cleanup
-            fileOut.close();
-            bmp.recycle();
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static Bitmap load(String filename, Context context){
-        FileInputStream fileIn = null;
-        try {
-            fileIn = new FileInputStream(new File(filename));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Bitmap bmp = null;
-        try{
-            bmp = BitmapFactory.decodeStream(fileIn);
-            fileIn.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return bmp;
     }
 
 

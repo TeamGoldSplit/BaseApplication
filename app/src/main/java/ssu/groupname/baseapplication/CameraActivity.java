@@ -2,6 +2,9 @@ package ssu.groupname.baseapplication;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
 public class CameraActivity extends AppCompatActivity {
@@ -46,7 +50,7 @@ public class CameraActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent cIntent = new Intent(CameraActivity.this, OperationsActivity.class);
-                cIntent.putExtra("cameraOrFile", "camera");
+                cIntent.putExtra("fileOrCamera", "camera");
                 cIntent.putExtra("imgFilePath", pathToFile);
                 startActivity(cIntent);
             }
@@ -55,64 +59,15 @@ public class CameraActivity extends AppCompatActivity {
     Camera.PictureCallback mPictureCallBack = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            //deleteFiles("/storage/emulated/0/Pictures/TeamGoldSplit/");
-            File picture_file = getOutPutMediaFile();
-            if(picture_file.exists()){
-                picture_file.delete();
-            }
-            if(picture_file == null) {
-                return;
-            } else {
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(picture_file.getPath());
-                    fos.write(data);
-                    fos.close();
-                    camera.startPreview();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            BitmapIO bIO = new BitmapIO();
+            bIO.storeImage(data, "temp");
         }
     };
-    private File getOutPutMediaFile() {
-        String imageFileName = "temp.jpeg";
-        String state = Environment.getExternalStorageState();
-        if(!state.equals(Environment.MEDIA_MOUNTED)) {
-            return null;
-        } else {
-            File folder_TGS = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "TeamGoldSplit");
-            try {
-                folder_TGS.mkdirs();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            File outPutFile = new File(folder_TGS, imageFileName);
-            try{
-                pathToFile = outPutFile.getAbsolutePath();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
 
-            return outPutFile;
-        }
-    }
     public void captureImage(View v) {
         if(camera != null) {
             camera.takePicture(null, null, mPictureCallBack);
         }
     }
 
-    public static void deleteFiles(String path) {
-
-        File file = new File(path);
-
-        if (file.exists()) {
-            String deleteCmd = "rm -r " + path;
-            Runtime runtime = Runtime.getRuntime();
-            try {
-                runtime.exec(deleteCmd);
-            } catch (IOException e) { }
-        }
-    }
 }

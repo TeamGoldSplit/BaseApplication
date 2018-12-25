@@ -19,8 +19,10 @@
     <string name="med_quality">Medium Quality</string>
     <string name="low_quality">Low Quality</string>
     <string name="kmeans_desc">Result of decomposition by K-means partitioning</string>
+    <string name="orig_desc">Original image</string>
     <string name="original_image_filename">original_img.jpg</string>
     <string name="kmeans_image_filename">kmeans_output.jpg</string>
+    <string name="rotate_image_button">Rotate Image</string>
 
     <string name="c_roll">Files</string>
 

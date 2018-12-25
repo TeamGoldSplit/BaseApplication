@@ -2,6 +2,7 @@ package ssu.groupname.baseapplication;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.strictmode.Violation;
 import android.support.annotation.RequiresApi;
@@ -27,6 +28,12 @@ public class FinalActivity extends FragmentActivity {
     ColorPagerAdapter colorPagerAdapter;
     private ViewPager cViewPager;
 
+    private Uri originalURI;
+    private String fileOrCamera;
+
+    float origRotation;
+    float kmeansRotation;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -46,11 +53,40 @@ public class FinalActivity extends FragmentActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        //Check if we came from camera or file Activity
+        fileOrCamera = extras.getString("fileOrCamera");
+        switch (fileOrCamera){
+            case "file":
+                originalURI = extras.getParcelable("originalURI");
+                origRotation = 0f;
+                kmeansRotation = 0f;
+                break;
+            case "camera":
+                origRotation = 90f;
+                kmeansRotation = 90f;
+                break;
+        }
+
         colorPagerAdapter = new ColorPagerAdapter(getSupportFragmentManager());
         cViewPager = findViewById(R.id.final_pager);
         cViewPager.setAdapter(colorPagerAdapter);
 
     }
 
+    public Uri getOriginalURI(){
+        return originalURI;
+    }
+    public String getFileOrCamera(){
+        return fileOrCamera;
+    }
+
+    public float getKmeansRotation() {
+        return kmeansRotation;
+    }
+
+    public float getOrigRotation() {
+        return origRotation;
+    }
 }
 

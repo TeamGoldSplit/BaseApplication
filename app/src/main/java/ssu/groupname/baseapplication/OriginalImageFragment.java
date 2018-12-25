@@ -3,8 +3,8 @@ package ssu.groupname.baseapplication;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,10 +17,7 @@ import android.widget.ImageView;
 import java.io.File;
 import java.io.FileInputStream;
 
-import static android.os.Environment.getExternalStoragePublicDirectory;
-
-public class KMeansImageFragment extends Fragment {
-
+public class OriginalImageFragment extends Fragment {
     private String title;
     private int page;
     private String bmpFile;
@@ -33,16 +30,16 @@ public class KMeansImageFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View rootView = inflater.inflate(R.layout.kmeans_image_frag, container, false);
+        View rootView = inflater.inflate(R.layout.orig_image_frag, container, false);
         Bundle args = getArguments();
 
         assert args != null;
 
-        ImageView imgView = (ImageView) rootView.findViewById(R.id.kmeans_imageView);
+        ImageView imgView = (ImageView) rootView.findViewById(R.id.orig_imageView);
         imgView.setImageBitmap(bmp);
         imgView.setRotation(rotation);
 
-        rotate = (Button) rootView.findViewById(R.id.rotate_image_button);
+        rotate = (Button) rootView.findViewById(R.id.orig_rotate_image_button);
         rotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,12 +51,12 @@ public class KMeansImageFragment extends Fragment {
         return rootView;
     }
 
-    public static KMeansImageFragment newInstance(int pageNum, String title, String bmpFileName){
-        KMeansImageFragment cFrag = new KMeansImageFragment();
+    public static OriginalImageFragment newInstance(int pageNum, String title, String bmpFile){
+        OriginalImageFragment cFrag = new OriginalImageFragment();
         Bundle args = new Bundle();
-        args.putString("bmpFileName", bmpFileName);
         args.putInt("page_number", pageNum);
         args.putString("title", title);
+        args.putString("bmpFileName", bmpFile);
         cFrag.setArguments(args);
         return cFrag;
     }
@@ -71,25 +68,19 @@ public class KMeansImageFragment extends Fragment {
         page = getArguments().getInt("page_number");
         title = getArguments().getString("title");
         bmpFile = getArguments().getString("bmpFileName");
-        File file = new File(bmpFile);
-
-        rotation = ((FinalActivity)getActivity()).getKmeansRotation();
 
         BitmapIO bIO = new BitmapIO();
-        bmp = bIO.loadBMPFromFile(bmpFile, getContext());
-
-    }
-
-    public static Bitmap load(String filename, Context context){
-        FileInputStream fileIn;
-        Bitmap bmp = null;
-        try{
-            fileIn = context.openFileInput(filename);
-            bmp = BitmapFactory.decodeStream(fileIn);
-            fileIn.close();
-        } catch (Exception e){
-            e.printStackTrace();
+        String fileOrCamera = ((FinalActivity)getActivity()).getFileOrCamera();
+        switch (fileOrCamera){
+            case "file":
+                Uri imgURI = ((FinalActivity)getActivity()).getOriginalURI();
+                rotation = ((FinalActivity)getActivity()).getOrigRotation();
+                bmp = bIO.loadBMPFromFile(imgURI, getContext());
+                break;
+            case "camera":
+                bmp = bIO.loadBMPFromFile(bmpFile, getContext());
+                break;
         }
-        return bmp;
     }
+
 }
